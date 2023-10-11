@@ -1,0 +1,11 @@
+package knapsackOdev2;
+
+public class Nesne {
+	int _agirlik;
+	int _deger;
+	
+	public Nesne(int agirlik, int deger) {
+		_agirlik=agirlik;
+		_deger=deger;
+	}
+}

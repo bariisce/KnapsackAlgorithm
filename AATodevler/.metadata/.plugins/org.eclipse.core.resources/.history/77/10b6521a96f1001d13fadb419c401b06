@@ -1,0 +1,31 @@
+package knapsackOdev2;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) throws FileNotFoundException{
+		
+		Knapsack ks = new Knapsack();
+		
+		File file = new File("ks_10000_0.txt");
+		Scanner scan = new Scanner(file);
+		
+		int W = scan.nextInt();
+		int n = scan.nextInt();
+		
+		int[] nesneAgirligi = new int[n];
+		int[] degerler = new int[n];
+		
+		for(int i=0;i<n;i++) {
+			degerler[i] = scan.nextInt();
+			nesneAgirligi[i] = scan.nextInt();
+		}
+		scan.close();
+		
+		System.out.println("En Yüksek Değer: " + ks.knapsack(W, nesneAgirligi, degerler, n));
+		
+    }
+}

@@ -1,0 +1,11 @@
+package knapsackOdev2;
+
+public class Item {
+	int _agirlik;
+	int _deger;
+	
+	public Item(int agirlik, int deger) {
+		_agirlik=agirlik;
+		_deger=deger;
+	}
+}

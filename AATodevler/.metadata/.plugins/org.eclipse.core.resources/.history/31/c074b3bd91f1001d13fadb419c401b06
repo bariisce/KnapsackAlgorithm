@@ -1,0 +1,73 @@
+package knapsackOdev2;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+class Item implements Comparable<Item> {
+    int weight;
+    int value;
+    double valuePerWeight;
+
+    public Item(int weight, int value) {
+        this.weight = weight;
+        this.value = value;
+        this.valuePerWeight = (double) value / weight;
+    }
+
+    @Override
+    public int compareTo(Item o) {
+        return Double.compare(o.valuePerWeight, this.valuePerWeight);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        List<Item> items = new ArrayList<>();
+        int capacity = 0;
+
+        try (BufferedReader br = new BufferedReader(new FileReader("ks_10000_0.txt"))) {
+            String line = br.readLine();
+            String[] values = line.split(" ");
+
+            int numItems = Integer.parseInt(values[1]);
+            for (int i = 0; i < numItems; i++) {
+                line = br.readLine();
+                values = line.split(" ");
+
+                int weight = Integer.parseInt(values[0]);
+                int value = Integer.parseInt(values[1]);
+                items.add(new Item(weight, value));
+            }
+
+            capacity = Integer.parseInt(values[0]);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Collections.sort(items);
+        int maxValue = knapsack(items, capacity);
+        System.out.println("Maximum value: " + maxValue);
+    }
+
+    public static int knapsack(List<Item> items, int capacity) {
+        int totalValue = 0;
+        int remainingCapacity = capacity;
+
+        for (Item item : items) {
+            if (item.weight <= remainingCapacity) {
+                totalValue += item.value;
+                remainingCapacity -= item.weight;
+            } else {
+                double fraction = (double) remainingCapacity / item.weight;
+                totalValue += fraction * item.value;
+                break;
+            }
+        }
+
+        return totalValue;
+    }
+}
